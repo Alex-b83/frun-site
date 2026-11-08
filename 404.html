@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invitation à un défi FRUN</title>
+  <meta name="theme-color" content="#101012">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #101012;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+    .container { max-width: 460px; width: 100%; }
+    .logo {
+      font-size: 58px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+    .logo span { color: #ff6500; }
+    .subtitle { color: #aaa; letter-spacing: 3px; font-size: 12px; }
+    .card {
+      margin-top: 45px;
+      padding: 28px 20px;
+      background: #222226;
+      border-radius: 18px;
+    }
+    h1 { font-size: 24px; }
+    .code {
+      color: #ff6500;
+      font-size: 27px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin: 24px 0;
+      overflow-wrap: anywhere;
+    }
+    .button {
+      display: block;
+      padding: 17px;
+      border-radius: 12px;
+      background: #ff6500;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .note { color: #aaa; font-size: 14px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="logo">FR<span>U</span>N.</div>
+    <div class="subtitle">FRIENDS. RUN. FUN.</div>
+
+    <section class="card" id="invitation" hidden>
+      <h1>🏆 Tu es invité à un défi !</h1>
+      <p>Un ami t'invite à rejoindre son défi FRUN.</p>
+      <div class="code" id="code"></div>
+      <a class="button" id="openApp" href="#">Ouvrir FRUN</a>
+      <p class="note">
+        Si l'application ne s'ouvre pas, lance FRUN
+        et saisis le code affiché ci-dessus dans
+        « Rejoindre un défi ».
+      </p>
+    </section>
+
+    <section class="card" id="notFound" hidden>
+      <h1>Page introuvable</h1>
+      <p class="note">Ce lien FRUN n'est pas reconnu.</p>
+      <a class="button" href="/">Accueil FRUN</a>
+    </section>
+  </main>
+
+  <script>
+    const match = window.location.pathname.match(
+      /^\/defi\/([a-zA-Z0-9_-]+)\/?$/
+    );
+
+    if (match) {
+      const code = match[1].toUpperCase();
+      document.getElementById("code").textContent = code;
+      document.getElementById("openApp").href =
+        "frun://join?code=" + encodeURIComponent(code);
+      document.getElementById("invitation").hidden = false;
+    } else {
+      document.getElementById("notFound").hidden = false;
+    }
+  </script>
+</body>
+</html>
