@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Un ami te défie sur FRUN !</title>
+  <meta name="description" content="Relève le défi, cumule des Fruns et grimpe sur le podium !">
+  <meta name="theme-color" content="#101012">
+
+  <!-- Aperçu WhatsApp et réseaux sociaux : image optimisée et URL absolue -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="FRUN">
+  <meta property="og:title" content="🏆 Un ami te défie sur FRUN !">
+  <meta property="og:description" content="Relève le défi, cumule des Fruns et grimpe sur le podium !">
+  <meta property="og:url" content="https://frun.fr/invitation.html">
+  <meta property="og:image" content="https://frun.fr/invitation-frun-whatsapp.jpg">
+  <meta property="og:image:secure_url" content="https://frun.fr/invitation-frun-whatsapp.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="FRUN : un ami te défie, rejoins son défi sportif !">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Un ami te défie sur FRUN !">
+  <meta name="twitter:description" content="Relève le défi et grimpe sur le podium !">
+  <meta name="twitter:image" content="https://frun.fr/invitation-frun-whatsapp.jpg">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #101012;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 460px;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 58px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+
+    .logo span { color: #ff6500; }
+
+    .subtitle {
+      color: #aaa;
+      letter-spacing: 3px;
+      font-size: 12px;
+    }
+
+    .card {
+      margin-top: 35px;
+      padding: 24px 20px;
+      background: #222226;
+      border-radius: 18px;
+    }
+
+    .banner {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 { font-size: 24px; }
+
+    .code {
+      color: #ff6500;
+      font-size: 27px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin: 24px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .button {
+      display: block;
+      padding: 17px;
+      border-radius: 12px;
+      background: #ff6500;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .note {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <div class="logo">FR<span>U</span>N.</div>
+    <div class="subtitle">FRIENDS. RUN. FUN.</div>
+
+    <section class="card" id="invitation" hidden>
+      <img
+        class="banner"
+        src="/invitation-frun-whatsapp.jpg"
+        alt="Invitation à un défi FRUN"
+      >
+
+      <h1>🏆 Tu es invité à un défi !</h1>
+      <p>Un ami t'invite à rejoindre son défi FRUN.</p>
+
+      <div class="code" id="code"></div>
+
+      <a class="button" id="openApp" href="#">
+        Ouvrir FRUN
+      </a>
+
+      <p class="note">
+        Si l'application ne s'ouvre pas, lance FRUN
+        et saisis le code affiché ci-dessus dans
+        « Rejoindre un défi ».
+      </p>
+    </section>
+
+    <section class="card" id="notFound" hidden>
+      <h1>Invitation introuvable</h1>
+      <p class="note">Aucun code de défi valide n'a été fourni.</p>
+      <a class="button" href="/">Accueil FRUN</a>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const rawCode = params.get("code");
+
+    if (rawCode && /^[a-zA-Z0-9_-]+$/.test(rawCode)) {
+      const code = rawCode.toUpperCase();
+
+      document.getElementById("code").textContent = code;
+      document.getElementById("openApp").href =
+        "frun://join?code=" + encodeURIComponent(code);
+
+      document.getElementById("invitation").hidden = false;
+    } else {
+      document.getElementById("notFound").hidden = false;
+    }
+  </script>
+</body>
+</html>
